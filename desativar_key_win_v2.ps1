@@ -1,12 +1,12 @@
 # Pergunta ao usuário se deseja ativar ou desativar a tecla "Windows"
-write-host -b Yellow "Para as modificações terem efeito esse script reiniciara seu PC"
+write-host -f Yellow "Para as modificações terem efeito esse script reiniciara seu PC"
 $choice = Read-Host "Você deseja ativar (A) ou desativar (D) a tecla Windows? (A/D)"
 
 if ($choice -eq "A") {
     # Ativa a tecla "Windows"
     Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layout" -Name "Scancode Map" -ErrorAction SilentlyContinue
     Write-Host "Tecla Windows ativada com sucesso!" -b Blue
-    Write-Host -b Yellow "seu pc sera reiniciado deseja continuar..."
+    Write-Host -f Yellow "seu pc sera reiniciado deseja continuar..."
     Pause
     Restart-Computer
 } elseif ($choice -eq "D") {
@@ -18,7 +18,7 @@ if ($choice -eq "A") {
 
     New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Keyboard Layout" -Name "Scancode Map" -Value ([byte[]]([convert]::ToByte($hexScancodeMap, 16))) -PropertyType Binary -Force | Out-Null
     Write-Host "Tecla Windows desativada com sucesso!" -b Blue
-    Write-Host -b Yellow "seu pc sera reiniciado deseja continuar"
+    Write-Host -f Yellow "seu pc sera reiniciado deseja continuar"
     Pause
     Restart-Computer
 } else {
